@@ -1,0 +1,19 @@
+{
+  "name": "sample",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:optimized": "asc assembly/index.ts -b build/optimized.wasm -t build/optimized.wat -O --noAssert --runtime half --use abort=",
+    "build": "npm run build:optimized",
+    "postbuild": "shx cp ./build/optimized.wasm ../Device/data/blink.wasm"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "assemblyscript": "^0.9.2",
+    "shx": "^0.3.2",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {}
+}
