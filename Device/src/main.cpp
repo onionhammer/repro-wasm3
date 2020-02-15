@@ -4,7 +4,16 @@
 
 #include "Script.hpp"
 
-Script script;
+#define NATIVE_STACK_SIZE   (32*1024)
+
+void wasm_task(void *) {
+    Script script;
+    script.Setup("/blink.wasm");
+
+    // while (true) {
+    //     script.Loop();
+    // }
+}
 
 void setup() {
     Serial.begin(115200);
@@ -16,10 +25,10 @@ void setup() {
         return;
     }
 
-    script.Setup("/blink.wasm");
+    xTaskCreate(&wasm_task, "wasm3", NATIVE_STACK_SIZE, NULL, 5, NULL);
 }
 
 void loop() {
-    script.Loop();
-    delay(1000);
+    // script.Loop();
+    delay(100);
 }
